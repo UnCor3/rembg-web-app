@@ -1,6 +1,5 @@
-FROM python:3.10.6
+FROM nikolaik/python-nodejs:python3.9-nodejs20-slim	
 
-RUN apt update && apt install nodejs -y && apt install npm -y
 
 EXPOSE 3001
 
