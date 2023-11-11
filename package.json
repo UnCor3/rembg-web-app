@@ -7,7 +7,7 @@
     "dev": "npm-run-all --parallel dev:*",
     "dev:client": "vite",
     "dev:server": "cd ./server && python index.py",
-    "serve": "npm-run-all --parallel prod:*",
+    "serve": "tsc && vite build",
     "prod:client:": "tsc && vite build && vite preview",
     "prod:server": "cd ./server && python index.py"
   },
