@@ -1,3 +1,3 @@
-FROM nikolaik/python-nodejs:python3.9-nodejs20-slim	
+FROM nikolaik/python-nodejs:python3.10-nodejs21-slim
 
-EXPOSE 3001 
+EXPOSE 3001  
