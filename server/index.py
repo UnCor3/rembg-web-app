@@ -43,4 +43,4 @@ def remove_background():
 
 
 if __name__ == '__main__':
-    serve(host='0.0.0.0', port=3001, app=app)
+    serve(host='0.0.0.0', port=3002, app=app)

@@ -1,7 +1,7 @@
 import { ImagesInitialType } from "../components/rembg-form/rembg-form.component";
 
 //Backend is served on a different port
-const API_PORT = "3001";
+const API_PORT = "3002";
 const API_PROTOCOL = document.location.protocol;
 const API_HOSTNAME = document.location.hostname;
 const VITE_PORT = import.meta.env.VITE_PORT;
