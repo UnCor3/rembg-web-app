@@ -17,6 +17,10 @@ def generate_unique_filename():
 
 @app.route('/rembg', methods=['POST'])
 def remove_background():
+    # make sure the uploads and outputs folder exist
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
     id = generate_unique_filename()
     CURRENT_UPLOAD_FOLDER = os.path.join(UPLOAD_FOLDER, id)
     os.mkdir(CURRENT_UPLOAD_FOLDER)
