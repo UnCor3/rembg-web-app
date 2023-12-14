@@ -38,7 +38,6 @@ const GithubIcon = styled(AiFillGithub)`
 
 //*STYLES
 const Wrapper = styled.div`
-  width: 100%;
   background-color: white;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20px);

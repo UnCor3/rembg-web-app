@@ -1,27 +1,11 @@
 import { Swiper } from "swiper/react";
 import SwiperCore from "swiper";
-import {
-  Navigation,
-  Pagination,
-  EffectFade,
-  Autoplay,
-  Controller,
-  Zoom,
-  Thumbs,
-} from "swiper/modules";
+import { Navigation, Pagination, Controller, Thumbs } from "swiper/modules";
 import styled, { css } from "styled-components";
 import { FC } from "react";
 import { laptop } from "../../../lib/responsive";
 
-SwiperCore.use([
-  Navigation,
-  Pagination,
-  EffectFade,
-  Autoplay,
-  Controller,
-  Zoom,
-  Thumbs,
-]);
+SwiperCore.use([Navigation, Pagination, Controller, Thumbs]);
 
 const Wrapper: FC<{
   children: React.ReactNode;
@@ -33,10 +17,6 @@ const Wrapper: FC<{
     pagination: true,
     navigation: true,
     loop: true,
-    // autoplay: {
-    //  delay: 1000,
-    //  disableOnInteraction: false,
-    // },
     ...settings,
   };
 
@@ -46,7 +26,12 @@ const Wrapper: FC<{
       $arrows={sliderOptions?.navigation}
       $bg={bg}
     >
-      <Swiper {...sliderOptions} updateOnWindowResize={true}>
+      <Swiper
+        {...sliderOptions}
+        updateOnWindowResize={true}
+        observer={true}
+        observeParents={true}
+      >
         {children}
       </Swiper>
     </SwiperWrapper>
@@ -61,19 +46,10 @@ const SwiperWrapper = styled.div<{
   $bg: string | undefined;
 }>`
   position: relative;
-  .swiper {
-    width: 100%;
-  }
-
   .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    img {
-      background-image: url(./png-bg.jpg);
-      max-width: 50%;
-      height: 300px;
-    }
   }
   ${({ $arrows }) =>
     $arrows &&
@@ -124,6 +100,7 @@ const SwiperWrapper = styled.div<{
           opacity: 0.1;
         }
       }
+
       &:hover {
         .swiper-button {
           &-prev,

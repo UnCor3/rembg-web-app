@@ -1,12 +1,12 @@
 import { ImagesInitialType } from "../rembg-form/rembg-form.component";
 import { selectAppState } from "../../store/selectors/selectors";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import SwiperPages from "./children/swiper-pages";
 import { AnimatePresence } from "framer-motion";
 import styled, { css } from "styled-components";
 import { tablet } from "../../lib/responsive";
 import ToolBar from "./children/toolbar";
 import { FC, useState } from "react";
+import SwiperPages from "./children/swiper-pages/swiper-pages";
 
 const Swipers: FC<{ input: ImagesInitialType; output: ImagesInitialType }> = ({
   input,
@@ -59,13 +59,10 @@ const Swipers: FC<{ input: ImagesInitialType; output: ImagesInitialType }> = ({
 
 //*STYLES
 const Divider = styled.div<{ $imgsDisplayedOnRow: boolean }>`
-  height: 1px;
-  width: 100%;
   background: black;
   margin: 2rem 0;
   ${tablet(css`
     height: 100%;
-    width: unset !important;
     background: none;
     margin: 0;
     border: 1px solid black;
