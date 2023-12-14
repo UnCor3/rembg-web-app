@@ -51,7 +51,7 @@ const UploadButton = () => {
         {!loading ? (
           "Upload Selected Files"
         ) : imgUploadDone ? (
-          "Upload is done"
+          "Done uploading"
         ) : (
           <LoadingText>
             <div>Uploading</div>
