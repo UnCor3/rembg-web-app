@@ -1,9 +1,10 @@
-import { ImagesInitialType } from "../../rembg-form/rembg-form.component";
+import { ImagesInitialType } from "../../../rembg-form/rembg-form.component";
 import { Oval } from "react-loader-spinner";
-import { SwiperSlide } from "swiper/react";
 import styled from "styled-components";
-import Wrapper from "./wrapper";
+import Imgs from "./children/imgs";
+import Wrapper from "../wrapper";
 import { FC } from "react";
+
 //*Swiper.js-CSS
 import "swiper/css";
 import "swiper/css/autoplay";
@@ -61,11 +62,7 @@ const SwiperPages: FC<{
         bg,
       }}
     >
-      {imgs.map((img, index) => (
-        <SwiperSlide key={index}>
-          <img src={img.source} />
-        </SwiperSlide>
-      ))}
+      <Imgs imgs={imgs} />
     </Wrapper>
   );
 };

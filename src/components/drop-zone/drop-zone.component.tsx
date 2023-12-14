@@ -7,6 +7,7 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import { selectInputImages } from "../../store/selectors/selectors";
 import { informError } from "../../lib/toastify";
 import { laptop, tablet } from "../../lib/responsive";
+import DropZonePortal from "../portal/drop-zone.portal";
 
 const DropZone: FC<{
   imgInputRef: React.MutableRefObject<HTMLInputElement | null>;
@@ -23,8 +24,9 @@ const DropZone: FC<{
       e.dataTransfer!.dropEffect = "copy";
       uploadContainerRef.current!.classList.add("active");
     };
-    const dragLeaveEvenHandler = () =>
+    const dragLeaveEvenHandler = () => {
       uploadContainerRef.current!.classList.remove("active");
+    };
 
     const keydownEvent = (e: KeyboardEvent) => {
       if (e.key === "Escape")
@@ -37,7 +39,7 @@ const DropZone: FC<{
         "dragleave",
         dragLeaveEvenHandler
       );
-      window.addEventListener("keydown", keydownEvent);
+      // window.addEventListener("keydown", keydownEvent);
     } else {
       informError("Your browser does not support drag and drop");
     }
@@ -90,19 +92,22 @@ const DropZone: FC<{
   }, [imgs]);
 
   return (
-    <Container ref={uploadContainerRef}>
-      <Column>
-        <div></div>
-        <div></div>
-      </Column>
-      <Column>
-        <h1>DROP HERE</h1>
-      </Column>
-      <Column>
-        <div></div>
-        <div></div>
-      </Column>
-    </Container>
+    <DropZonePortal>
+      <Wrapper ref={uploadContainerRef}></Wrapper>
+      <Container>
+        <Column>
+          <div></div>
+          <div></div>
+        </Column>
+        <Column>
+          <h1>DROP HERE</h1>
+        </Column>
+        <Column>
+          <div></div>
+          <div></div>
+        </Column>
+      </Container>
+    </DropZonePortal>
   );
 };
 
@@ -123,8 +128,8 @@ const heightAndWidth = css`
 `;
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
   background-color: #00000061;
   color: white;
   align-items: center;
@@ -132,11 +137,9 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 998;
   display: none;
   &.active {
-    display: flex;
-    flex-direction: column;
   }
 
   ${Column} {
@@ -176,6 +179,24 @@ const Container = styled.div`
       border-bottom: 30px solid white;
       border-right: 30px solid white;
       ${heightAndWidth}
+    }
+  }
+`;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: transparent;
+  display: none;
+  z-index: 999;
+  &.active {
+    display: block;
+    + ${Container} {
+      display: flex;
+      flex-direction: column;
     }
   }
 `;
