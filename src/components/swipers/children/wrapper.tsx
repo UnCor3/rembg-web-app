@@ -48,6 +48,7 @@ const SwiperWrapper = styled.div<{
   position: relative;
   cursor: zoom-in;
   .swiper-slide {
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;

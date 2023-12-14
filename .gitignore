@@ -10,7 +10,9 @@ node_modules
 dist
 dist-ssr
 *.local
-server/processed_images.zip
+server/processed_images*
+server/outputs/*
+server/uploads/*
 
 # Editor directories and files
 .vscode/*
