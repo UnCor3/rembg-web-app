@@ -1,5 +1,8 @@
 import { ImagesInitialType } from "../components/rembg-form/rembg-form.component";
 
+export const maxAllowedSize = 100 * 1024 * 1024; //100MB
+export const maxAllowedImgCount = 10; //10 images beaause
+
 //Backend is served on a different port
 const API_PORT = "3001";
 const API_PROTOCOL = document.location.protocol;
