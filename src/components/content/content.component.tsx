@@ -16,6 +16,10 @@ const Container = styled.div<{ $isHamMenuOpen: boolean }>`
   max-width: 1500px;
   min-height: 600px;
   transition: filter 200ms ease;
+  padding: 0.5rem;
+  ${laptop(css`
+    padding: 1rem 1.5rem;
+  `)}
   margin: auto;
   ${(props) =>
     //Conditional blur filter
