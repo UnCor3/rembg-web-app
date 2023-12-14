@@ -6,15 +6,14 @@
       "command": "python -m pip install --upgrade pip"
     },
     {
-      "name": "pip install --no-cache-dir -r ./server/requirements.txt",
-      "command": "pip install --no-cache-dir -r ./server/requirements.txt"
+      "name": "pip install -r ./server/requirements.txt",
+      "command": "pip install -r ./server/requirements.txt"
     },
     {
       "name": "npm install",
       "command": "npm install"
     }
   ],
-
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "start": {
