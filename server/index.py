@@ -3,7 +3,6 @@ import zipfile
 from flask import Flask, request, jsonify, send_file
 from rembg import remove
 from flask_cors import CORS
-from waitress import serve
 
 app = Flask(__name__)
 CORS(app)
@@ -43,4 +42,4 @@ def remove_background():
 
 
 if __name__ == '__main__':
-    serve(host='0.0.0.0', port=3001, app=app)
+    app.run(host='0.0.0.0', port=3001)
