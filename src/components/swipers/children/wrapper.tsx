@@ -46,7 +46,10 @@ const SwiperWrapper = styled.div<{
   $bg: string | undefined;
 }>`
   position: relative;
-  cursor: zoom-in;
+  cursor: default;
+  ${laptop(css`
+    cursor: zoom-out;
+  `)}
   .swiper-slide {
     margin: auto;
     display: flex;
