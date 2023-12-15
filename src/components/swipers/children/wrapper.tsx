@@ -47,9 +47,6 @@ const SwiperWrapper = styled.div<{
 }>`
   position: relative;
   cursor: default;
-  ${laptop(css`
-    cursor: zoom-out;
-  `)}
   .swiper-slide {
     margin: auto;
     display: flex;

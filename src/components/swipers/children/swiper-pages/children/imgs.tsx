@@ -1,55 +1,89 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, MouseEvent, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { ImageType } from "../../../../../types";
 import styled from "styled-components";
+import useResize from "../../../../../hooks/useSize";
+
 type ImgsProps = {
   imgs: ImageType[];
 };
 
 const Imgs: FC<ImgsProps> = ({ imgs }) => {
+  const [zoomEnabled, setZoomEnabled] = useState(false);
+  const { listenToResize } = useResize();
+
   useEffect(() => {
-    //meaning that we are on mobile
-    if (window.innerWidth < 1023) return;
-    let mouseMoveListener: (e: Event) => void;
-    let mouseLeaveListener: (e: Event) => void;
+    const handleMouseMove = (e: Event) => {
+      const mouseEvent = e as unknown as MouseEvent;
+      const container = e.currentTarget as HTMLElement;
+      const img = (e.currentTarget as HTMLElement).children[0] as HTMLElement;
+      const rect = container.getBoundingClientRect();
+      const x = mouseEvent.clientX - rect.left;
+      const y = mouseEvent.clientY - rect.top;
 
-    document.querySelectorAll(".slider-pic").forEach((img) => {
-      mouseMoveListener = (e) => {
-        const mouseEvent = e as MouseEvent;
-        const container = e.currentTarget as HTMLElement;
-        const img = (e.currentTarget as HTMLElement).children[0] as HTMLElement;
-        const rect = container.getBoundingClientRect();
-        const x = mouseEvent.clientX - rect.left;
-        const y = mouseEvent.clientY - rect.top;
+      img.style.transition = "none";
+      img.style.transformOrigin = `${x}px ${y}px`;
+      img.style.transform = "scale(2)";
+    };
 
-        img.style.transition = "none";
-        img.style.transformOrigin = `${x}px ${y}px`;
-        img.style.transform = "scale(2)";
+    const handleMouseLeave = (e: Event, transition = true) => {
+      const element = (e.currentTarget as HTMLElement)
+        .children[0] as HTMLElement;
+      element.style.transition = transition ? "transform 0.5s ease" : "none";
+      element.style.transform = "scale(1)";
+      setZoomEnabled(false);
+    };
+    const disableZoom = (e: Event) => {
+      //toggle img zooming
+      setZoomEnabled(false);
+      handleMouseLeave(e, false);
+    };
+    const enableZoom = (e: Event) => {
+      handleMouseMove(e);
+      setZoomEnabled(true);
+    };
+
+    //mobile
+    if (window.innerWidth < 1023)
+      return () => {
+        //remove all
+        document.querySelectorAll(".slider-pic").forEach((img) => {
+          img.removeEventListener("mousemove", handleMouseMove);
+          img.removeEventListener("mouseleave", handleMouseLeave);
+          img.removeEventListener("click", disableZoom);
+          img.removeEventListener("click", enableZoom);
+        });
       };
 
-      mouseLeaveListener = (e) => {
-        const element = (e.currentTarget as HTMLElement)
-          .children[0] as HTMLElement;
-        element.style.transition = "transform 0.5s ease";
-        element.style.transform = "scale(1)";
-      };
-
-      img.addEventListener("mousemove", mouseMoveListener);
-      img.addEventListener("mouseleave", mouseLeaveListener);
-    });
-    return () => {
+    if (zoomEnabled) {
       document.querySelectorAll(".slider-pic").forEach((img) => {
-        img.removeEventListener("mousemove", mouseMoveListener);
-        img.removeEventListener("mouseleave", mouseLeaveListener);
+        img.addEventListener("click", disableZoom);
+        img.addEventListener("mousemove", handleMouseMove);
+        img.addEventListener("mouseleave", handleMouseLeave);
+        1;
+      });
+    } else {
+      //only add enable zoom
+      document.querySelectorAll(".slider-pic").forEach((img) => {
+        img.addEventListener("click", enableZoom);
+      });
+    }
+    return () => {
+      //remove all
+      document.querySelectorAll(".slider-pic").forEach((img) => {
+        img.removeEventListener("mousemove", handleMouseMove);
+        img.removeEventListener("mouseleave", handleMouseLeave);
+        img.removeEventListener("click", disableZoom);
+        img.removeEventListener("click", enableZoom);
       });
     };
-  }, []);
-
+  }, [zoomEnabled, listenToResize]);
+  //add the set state to the exact img
   return (
     <>
       {imgs.map((img, i) => (
         <SwiperSlide key={img.name}>
-          <ImgContainer className="slider-pic">
+          <ImgContainer className="slider-pic" $zoomEnabled={zoomEnabled}>
             <img src={img.source} alt="img" key={i} />
           </ImgContainer>
         </SwiperSlide>
@@ -58,7 +92,8 @@ const Imgs: FC<ImgsProps> = ({ imgs }) => {
   );
 };
 
-const ImgContainer = styled.div`
+const ImgContainer = styled.div<{ $zoomEnabled?: boolean }>`
+  cursor: ${({ $zoomEnabled }) => ($zoomEnabled ? "zoom-out" : "zoom-in")};
   background-image: url(./png-bg.jpg);
   width: 100%;
   height: 100%;

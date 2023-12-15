@@ -18,16 +18,9 @@ const Files: FC<{
     <AnimatePresence mode="sync">
       {render
         ? imgs.map((img, i) => (
-            <File
-              variants={item}
-              {...defaultVariant}
-              key={img.name}
-              custom={i}
-              layout
-            >
+            <File variants={item} {...defaultVariant} key={i} custom={i} layout>
               {shortenText(img.name, 17)}
               <IconWrapper
-                key={img.name}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleEditFiles(img.name)}
               >
