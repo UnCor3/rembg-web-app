@@ -4,6 +4,10 @@
   <img src="public/ss.png" />
 </p>
 
+<p align="center">
+  <img src="public/ss1.png" />
+</p>
+
 Hello everyone here is a  background removal app built with React - Python on the backend, it uses flash and rembg
 
 ## HOW TO START USING THE APP ?
