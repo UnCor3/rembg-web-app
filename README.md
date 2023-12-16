@@ -1,7 +1,7 @@
 # Rembg Web App - remove.io
 
 <p align="center">
-  <img src="ss.png" />
+  <img src="public/ss.png" />
 </p>
 
 Hello everyone here is a  background removal app built with React - Python on the backend, it uses flash and rembg
