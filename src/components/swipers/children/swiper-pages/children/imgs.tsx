@@ -1,8 +1,9 @@
 import { FC, useEffect, MouseEvent, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { ImageType } from "../../../../../types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useResize from "../../../../../hooks/useSize";
+import { laptop } from "../../../../../lib/responsive";
 
 type ImgsProps = {
   imgs: ImageType[];
@@ -93,7 +94,13 @@ const Imgs: FC<ImgsProps> = ({ imgs }) => {
 };
 
 const ImgContainer = styled.div<{ $zoomEnabled?: boolean }>`
-  cursor: ${({ $zoomEnabled }) => ($zoomEnabled ? "zoom-out" : "zoom-in")};
+  cursor: default;
+  ${laptop(css`
+    cursor: ${(
+      //@ts-ignore
+      { $zoomEnabled }
+    ) => ($zoomEnabled ? "zoom-out" : "zoom-in")};
+  `)}
   background-image: url(./png-bg.jpg);
   width: 100%;
   height: 100%;
